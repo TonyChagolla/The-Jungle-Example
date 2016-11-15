@@ -41,10 +41,10 @@ router.post('/', function(req, res) {
 				products: productList
 			});
 
-
 		});
 	});
 
 });
+
 
 module.exports = router;
