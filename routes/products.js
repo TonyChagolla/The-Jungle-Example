@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 	  	if(error) {
 	  		res.send(500, error.message);
 	  	}
-	  	
+
 	  	res.render('products', {
 	  		title: 'PRODUCTS',
 	  		products: productList
@@ -26,9 +26,25 @@ router.post('/', function(req, res) {
 		stock: req.body.stock
 	});
 
-	product.save();
- 
-	res.send('OK');
+	product.save(function(error, product) {
+		if(error) {
+			res.send(500, error.message);
+		}
+
+		Product.find(function(error, productList) {
+
+			if(error) {
+				res.send(500, error.message);
+			}
+
+			res.render('products', {
+				title: 'PRODUCTS',
+				products: productList
+			});
+
+
+		});
+	});
 
 });
 
